@@ -27,8 +27,9 @@ export default async function  handler(req: NextApiRequest, res: NextApiResponse
   
 
 
+
   // Return the search results as JSON
-  res.status(200).json(searchData);
+  res.status(200).json(searchData[0]);
 
     
   

@@ -1,4 +1,6 @@
 
+import { image } from '@nextui-org/react';
+import { data } from 'autoprefixer';
 import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react'
 
 // interface FormData {
@@ -9,7 +11,7 @@ import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [img, setImg] = useState(null)
+  const [img, setImg] = useState("")
 
  
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,11 +36,9 @@ export default function Home() {
 
     if (response.ok) {
       const data = await response.json();
-      await setImg(data.image)
-      console.log(img);
       
-      console.log('Data received:', data);
-      
+      //console.log('Data received:', data);
+      setImg(data.image)
       // Handle the data received from the server
       
     } else {
@@ -91,8 +91,10 @@ export default function Home() {
             </div>
             
           </div>
-          <div className=" bg-white mx-auto aspect-video overflow-hidden rounded-xl object-cover object-bottom sm:w-full lg:order-last"
-            ></div>
+          <div className=" bg-white left-4 border-[1px] border-black" 
+            > 
+            <img src={img} className='h-full w-full' />
+            </div>
         </div>
       </div>
     </section>
