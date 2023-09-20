@@ -1,46 +1,54 @@
-"use client";
-import React, { useState,  FormEvent, ChangeEvent } from 'react'
 
-interface FormData {
-  player: string;
+import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react'
+
+// interface FormData {
+//   player: string;
  
-}
+// }
 
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [img, setImg] = useState(null)
 
+ 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   
+ 
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-     try {
-      // Send the search query to the backend API route
-      const response = await fetch('/api/players', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(searchQuery),
-      });
+ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  
+   try {
+    // Send the search query to the backend API route
+    const response = await fetch('/api/route', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(searchQuery),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        // Handle the data received from the server
-        console.log('Data received:', data);
-      } else {
-        // Handle errors if any
-        console.error('Search request failed');
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (response.ok) {
+      const data = await response.json();
+      await setImg(data.image)
+      console.log(img);
+      
+      console.log('Data received:', data);
+      
+      // Handle the data received from the server
+      
+    } else {
+      // Handle errors if any
+      console.error('Search request failed');
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -59,14 +67,14 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full max-w-sm space-y-2 mx-auto" >
-              <form className="flex space-x-2" onSubmit={handleSubmit} >
+              <form className="flex space-x-2 " onSubmit={handleSubmit}  >
                 <input
                   className="max-w-lg flex-1 "
                   placeholder="Enter a player name"
                   type="text"
           value={searchQuery}
-          onChange={handleInputChange}
-      
+          
+      onChange={handleInputChange}
           
                 />
                 <button className="bg-white text-black"  type="submit">
