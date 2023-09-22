@@ -1,7 +1,9 @@
 
 import { image } from '@nextui-org/react';
 import { data } from 'autoprefixer';
-import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react'
+import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react';
+import axios from "axios";
+import { Spin } from "antd";
 
 // interface FormData {
 //   player: string;
@@ -12,8 +14,8 @@ import React, { useState,  FormEvent, ChangeEvent, useEffect } from 'react'
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [img, setImg] = useState("")
-
- 
+  const [imgg, setImgg] = useState("")
+  const [loading, setLoading] = useState(false);
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
@@ -39,6 +41,7 @@ export default function Home() {
       
       //console.log('Data received:', data);
       setImg(data.image)
+      setImgg(data)
       // Handle the data received from the server
       
     } else {
@@ -50,6 +53,23 @@ export default function Home() {
   }
 };
 
+const handleMint = async () => {
+  setLoading(true);
+
+  try {
+    const res = await axios.post("/api/mint", {
+      first: imgg,
+      
+    });
+    console.log(res.data);
+
+    
+  } catch (error) {
+    console.log(error);
+  }
+  setLoading(false);
+  
+};
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-black " >
@@ -82,11 +102,11 @@ export default function Home() {
                 </button>
               </form>
               <button
-               type="submit"
+               onClick={handleMint}
                 className="relative z-20 h-[90px] w-full rounded-[16px] border-[0.5px] border-black bg-white transition-all duration-300  ease-in-out hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:bg-opacity-100 hover:shadow-[#FFF6EA] active:translate-x-[0px]
                      active:translate-y-[0px] active:rounded-2xl active:shadow-none"
               >
-                 Mint!
+                {loading && <Spin />}  Mint!
               </button>
             </div>
             
