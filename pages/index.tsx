@@ -83,13 +83,13 @@ const handleMint = async () => {
                                 Mint your Favourite Athelete
               </h1>
               <p className="max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-100 mx-auto" >
-                                lfggggg.
+                                
               </p>
             </div>
             <div className="w-full max-w-sm space-y-2 mx-auto" >
               <form className="flex space-x-2 " onSubmit={handleSubmit}  >
                 <input
-                  className="max-w-lg flex-1 "
+                  className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                   placeholder="Enter a player name"
                   type="text"
           value={searchQuery}
@@ -97,7 +97,7 @@ const handleMint = async () => {
       onChange={handleInputChange}
           
                 />
-                <button className="bg-white text-black"  type="submit">
+                <button className="flex-shrink-0 bg-white hover:bg-teal-700 border-black-300 hover:border-teal-700 text-sm border-4 text-black py-1 px-2 rounded"  type="submit">
                                     Search
                 </button>
               </form>

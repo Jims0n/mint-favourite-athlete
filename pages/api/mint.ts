@@ -32,7 +32,7 @@ export default async function  mint(req: NextApiRequest, res: NextApiResponse) {
     const image = `${ first.first.image}`;
     
  const createRes = await axios.post(
-  "https://devnet.underdogprotocol.com/v2/projects/1/nfts",
+  "https://mainnet.underdogprotocol.com/v2/projects/1/nfts",
   {
     name,
     symbol,
